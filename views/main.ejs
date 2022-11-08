@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Save Webpage as PDF</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        table, th, td{
+                border:1px solid black;
+              }
+    </style>
+</head>
+<body>
+    <div>
+        <h3>Enter a URL to save web page as a PDF:</h3>
+        <input id="link" type="text">
+        <button id="submit">Save PDF</button>
+    </div>
+    <div>
+        <h3>Previously Saved Pages:</h3>
+        <% if(details!=null) { %>
+        <table>
+            <tr>
+                <th>Date Saved</th>
+                <th>Title</th>
+                <th>URL</th>
+            </tr>
+            <% details.forEach(function(item){ %>
+            <tr>
+                <td><%= moment(item.date).format(shortDateFormat) %></td>
+                <td><a href="<%= item.filePath%>"><%= item.title%></a></td>
+                <td><%= item.url%></td>
+            </tr>
+            <% }) %>
+        </table>
+        <% } %>
+    </div>
+    <script>
+        document.getElementById('submit').addEventListener('click', function(){
+            console.log('test')
+            const urlSub = document.getElementById('link').value;
+            console.log(urlSub)
+            if(urlSub === ''){
+                return alert("Please enter a valid URL");
+            }
+            $.post("/save",
+            {
+                url: urlSub,
+            });
+            if(!alert('Your web page was saved as a PDF'))setTimeout(function(){window.location.reload();}, 5000)
+            //if(!alert('Your web page was saved as a PDF')){window.location.reload();} 
+        })
+    </script>
+</body>
+</html>
