@@ -1,5 +1,5 @@
 {
-  "name": "express-puppeteer-docker",
+  "name": "express-puppeteer-docker-react",
   "version": "1.0.0",
   "description": "dockerized express app using puppeteer to save web data",
   "main": "index.js",
