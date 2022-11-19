@@ -8,7 +8,9 @@ router.get("/", function(req, res) {
         if(err) {
             console.log(err);
         } else {
-            res.render("main", { details: allDetails })
+            res
+            .json(allDetails)
+            .status(200);
         }
     })
 });
@@ -23,15 +25,8 @@ router.post("/save", (req, res) => {
             }
             const submissionID = myData.id
             savePDF(submissionID,url);
-            res.redirect("/")
         })
-        // //.then(savePDF(url))
-        // .then(item => {
-        //     res.redirect("/")
-        // })
-        // .catch(err => {
-        //     res.status(400).send("Unable to save to database");
-        // });
+    res.sendStatus(200);
 })
 
 module.exports = router;
